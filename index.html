@@ -63,6 +63,7 @@
             text-align: center;
             box-shadow: 0 5px 15px var(--shadow-dark);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative; /* Diperlukan untuk penempatan nav */
         }
 
         header h1 {
@@ -74,6 +75,51 @@
             background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+        }
+
+        /* Gaya untuk Navigasi */
+        nav {
+            margin-top: 15px;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 1.1em;
+            padding: 8px 15px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--accent-blue);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--accent-blue);
+        }
+
+        nav a:hover::after {
+            width: 100%;
         }
 
         /* Gaya untuk container utama */
@@ -104,7 +150,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-.payment-container h2 {
+        .payment-container h2 {
             color: var(--text-dark);
             font-size: 2.5em;
             margin-bottom: 35px;
@@ -228,7 +274,7 @@
             letter-spacing: 0.5px;
         }
 
-.copy-button:hover {
+        .copy-button:hover {
             background: var(--button-hover);
             transform: translateY(-4px) scale(1.02);
             box-shadow: 0 8px 20px rgba(0, 188, 212, 0.6);
@@ -278,7 +324,7 @@
             font-weight: 300;
         }
 
-        .whatsapp-link, .telegram-link {
+        .whatsapp-link, .telegram-link, .testimonial-link, .whatsapp-channel-link { /* Tambahkan .whatsapp-channel-link */
             background-color: #25D366; /* Warna hijau WhatsApp */
             color: white;
             padding: 18px 35px;
@@ -320,6 +366,38 @@
             font-size: 1.3em;
         }
 
+        .testimonial-link { /* Gaya untuk tombol testimonial */
+            background-color: #8854c0; /* Warna ungu untuk testimonial */
+            box-shadow: 0 5px 15px rgba(136, 84, 192, 0.4);
+        }
+
+        .testimonial-link:hover {
+            background-color: #6a4095;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(136, 84, 192, 0.6);
+        }
+
+        .testimonial-link::before {
+            content: '⭐'; /* Ikon bintang untuk testimonial */
+            font-size: 1.3em;
+        }
+
+        .whatsapp-channel-link { /* Gaya untuk tombol WhatsApp Channel baru */
+            background-color: #00bcd4; /* Warna biru aksen untuk channel */
+            box-shadow: 0 5px 15px rgba(0, 188, 212, 0.4);
+        }
+
+        .whatsapp-channel-link:hover {
+            background-color: #00a7b8;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 188, 212, 0.6);
+        }
+
+        .whatsapp-channel-link::before {
+            content: '📢'; /* Ikon pengeras suara untuk channel */
+            font-size: 1.3em;
+        }
+
         /* Gaya untuk footer */
         footer {
             background-color: var(--dark-card);
@@ -332,10 +410,21 @@
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-/* Media queries untuk responsivitas */
+        /* Media queries untuk responsivitas */
         @media (max-width: 768px) {
+            header {
+                padding: 1.8em 0;
+            }
             header h1 {
                 font-size: 2.2em;
+            }
+            nav ul {
+                gap: 10px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            nav a {
+                font-size: 1em;
             }
             .payment-container {
                 padding: 30px;
@@ -361,7 +450,7 @@
                 flex-direction: column; /* Tombol bertumpuk di layar kecil */
                 gap: 10px;
             }
-            .whatsapp-link, .telegram-link {
+            .whatsapp-link, .telegram-link, .testimonial-link, .whatsapp-channel-link { /* Tambahkan .whatsapp-channel-link */
                 padding: 15px 25px;
                 font-size: 1.1em;
                 width: calc(100% - 30px); /* Sesuaikan lebar dengan padding */
@@ -394,7 +483,7 @@
                 padding: 10px 20px;
                 font-size: 1em;
             }
-            .whatsapp-link, .telegram-link {
+            .whatsapp-link, .telegram-link, .testimonial-link, .whatsapp-channel-link { /* Tambahkan .whatsapp-channel-link */
                 padding: 12px 20px;
                 font-size: 1em;
             }
@@ -408,6 +497,11 @@
 
     <header>
         <h1>𝑹𝒁𝒀𝒀 𝑷𝑨𝒀𝑴𝑬𝑵𝑻</h1>
+        <nav>
+            <ul>
+                <li><a href="https://whatsapp.com/channel/0029VbBEhgi42DcaDEgNdS3t" target="_blank" rel="noopener noreferrer">𝖂𝖊𝖇𝖘𝖎𝖙𝖊 𝕻𝖊𝖒𝖇𝖆𝖞𝖆𝖗𝖆𝖓 𝕽𝒁𝖄 𝕽𝖊𝖆𝖑</a></li>
+            </ul>
+        </nav>
     </header>
 
     <div class="main-content">
@@ -438,7 +532,7 @@
                 <button class="copy-button" onclick="copyToClipboard('ovoNumber')">Salin Nomor OVO</button>
             </div>
 
-<!-- Metode Pembayaran QRIS -->
+            <!-- Metode Pembayaran QRIS -->
             <div class="payment-method">
                 <img src="https://files.catbox.moe/abl2k9.png" alt="QRIS Code" class="qris-image" onerror="this.onerror=null;this.src='https://placehold.co/250x250/000000/ffffff?text=QRIS+Code';">
                 <h3>QRIS</h3>
@@ -451,11 +545,19 @@
 
             <div class="whatsapp-support">
                 <p>Ada pertanyaan atau butuh bantuan lebih lanjut?,atau order website bisa hubungi di bawah ini</p>
-                <a href="https://wa.me/6281319409572?text=Halo%20saya%20ingin%20bertanya%20tentang%20pembayaran." class="whatsapp-link" target="_blank" rel="noopener noreferrer">
+                <a href="https://wa.me/6281319409572?text=Halo%20Rzyy%20Saya%20Ingin%20Membeli%20Webesite." class="whatsapp-link" target="_blank" rel="noopener noreferrer">
                     Hubungi RZ via WhatsApp
                 </a>
                 <a href="https://t.me/rzyyy43" class="telegram-link" target="_blank" rel="noopener noreferrer">
                     Hubungi RZ via Telegram
+                </a>
+                <!-- Tombol My Testimoni -->
+                <a href="https://whatsapp.com/channel/0029VbBEhgi42DcaDEgNdS3t" class="testimonial-link" target="_blank" rel="noopener noreferrer">
+                   My Testimoni
+                </a>
+                <!-- Tombol WhatsApp Channel baru -->
+                <a href="https://whatsapp.com/channel/0029VbBEhgi42DcaDEgNdS3t" class="whatsapp-channel-link" target="_blank" rel="noopener noreferrer">
+                   WhatsApp Channel
                 </a>
             </div>
         </div>
@@ -467,27 +569,4 @@
 
     <script>
         // Fungsi untuk menyalin teks ke clipboard
-        function copyToClipboard(elementId) {
-            const element = document.getElementById(elementId);
-            const textToCopy = element.textContent || element.innerText; // Mendapatkan teks dari elemen
-
-            // Menggunakan document.execCommand('copy') karena navigator.clipboard.writeText()
-            // mungkin tidak berfungsi di dalam iFrame atau lingkungan tertentu.
-            const tempInput = document.createElement('textarea');
-            tempInput.value = textToCopy;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            document.execCommand('copy');
-            document.body.removeChild(tempInput);
-
-            // Tampilkan pesan sukses
-            const messageBox = document.getElementById('messageBox');
-            messageBox.classList.add('show');
-            setTimeout(() => {
-                messageBox.classList.remove('show');
-            }, 2000); // Sembunyikan pesan setelah 2 detik
-        }
-    </script>
-</body>
-</html>
-
+        function copyToClipboar
