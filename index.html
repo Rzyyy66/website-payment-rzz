@@ -12,7 +12,7 @@
             --dark-bg: #1a1a2e; /* Latar belakang gelap utama */
             --dark-card: #2a2a4a; /* Latar belakang kartu gelap */
             --accent-blue: #00bcd4; /* Biru cerah untuk aksen */
-            --accent-merah: #FF0000; /* Merah untuk aksen */
+            --accent-purple: #8854c0; /* Ungu untuk aksen */
             --text-light: #e0e0e0; /* Warna teks terang */
             --text-dark: #f0f0f0; /* Warna teks lebih terang untuk judul */
             --button-primary: linear-gradient(45deg, #00bcd4, #00e5ff); /* Gradien tombol utama */
@@ -34,9 +34,16 @@
             min-height: 100vh;
             overflow-x: hidden; /* Mencegah scroll horizontal */
             position: relative;
+            /* Latar belakang gambar */
+            background-image: url('https://files.catbox.moe/rxgvcm.jpg'); /* Gambar latar belakang baru */
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed; /* Efek paralaks */
+            background-repeat: no-repeat;
+            transition: background-image 0.5s ease-in-out;
         }
 
-        /* Efek latar belakang abstraktif */
+        /* Overlay gelap untuk membuat teks lebih mudah dibaca */
         body::before {
             content: '';
             position: absolute;
@@ -44,26 +51,22 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at top left, rgba(0, 188, 212, 0.15) 0%, transparent 40%),
-                        radial-gradient(circle at bottom right, rgba(136, 84, 192, 0.15) 0%, transparent 40%);
+            background: rgba(0, 0, 0, 0.6); /* Warna gelap yang lebih pekat untuk overlay */
             z-index: -1;
-            animation: backgroundPulse 15s infinite alternate ease-in-out;
-        }
-
-        @keyframes backgroundPulse {
-            0% { background-size: 100% 100%; }
-            100% { background-size: 120% 120%; }
+            /* Hapus backgroundPulse karena sekarang ada gambar latar belakang */
         }
 
         /* Gaya untuk header */
         header {
-            background-color: var(--dark-card);
+            background-color: rgba(42, 42, 74, 0.8); /* Tambahkan transparansi */
             color: var(--text-dark);
             padding: 1.8em 0;
             text-align: center;
             box-shadow: 0 5px 15px var(--shadow-dark);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             position: relative; /* Diperlukan untuk penempatan nav */
+            backdrop-filter: blur(5px); /* Efek blur pada header */
+            -webkit-backdrop-filter: blur(5px);
         }
 
         header h1 {
@@ -132,7 +135,7 @@
         }
 
         .payment-container {
-            background-color: var(--dark-card);
+            background-color: rgba(42, 42, 74, 0.9); /* Sedikit lebih pekat untuk keterbacaan */
             padding: 45px;
             border-radius: 20px;
             box-shadow: 0 15px 40px var(--shadow-dark);
@@ -400,7 +403,7 @@
 
         /* Gaya untuk footer */
         footer {
-            background-color: var(--dark-card);
+            background-color: rgba(42, 42, 74, 0.8); /* Tambahkan transparansi */
             color: var(--text-light);
             text-align: center;
             padding: 1.5em 0;
@@ -408,6 +411,8 @@
             box-shadow: 0 -5px 15px var(--shadow-dark);
             font-size: 0.9em;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px); /* Efek blur pada footer */
+            -webkit-backdrop-filter: blur(5px);
         }
 
         /* Media queries untuk responsivitas */
@@ -592,9 +597,18 @@
                 .catch(err => {
                     // Gagal menyalin, bisa menampilkan pesan error atau log
                     console.error('Gagal menyalin:', err);
-                    alert('Gagal menyalin nomor. Silakan salin secara manual.');
+                    // Mengganti alert dengan pesan di messageBox
+                    const messageBox = document.getElementById('messageBox');
+                    messageBox.textContent = 'Gagal menyalin nomor. Silakan salin secara manual.';
+                    messageBox.style.backgroundColor = '#e74c3c'; // Warna merah untuk error
+                    messageBox.classList.add('show');
+                    setTimeout(() => {
+                        messageBox.classList.remove('show');
+                        messageBox.style.backgroundColor = '#2ecc71'; // Kembalikan warna hijau
+                    }, 3000);
                 });
         }
     }
 </script>
-    
+</body>
+</html>
