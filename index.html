@@ -7,6 +7,39 @@
     <!-- Link Google Font: Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
+        /* Gaya untuk header */
+header {
+    background-color: var(--dark-card);
+    color: var(--text-dark);
+    padding: 1.8em 0;
+    text-align: center;
+    box-shadow: 0 5px 15px var(--shadow-dark);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    /* Menggunakan flexbox untuk penataan jika ada elemen lain di header */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Gaya untuk logo di header */
+.header-logo {
+    max-width: 250px; /* Ukuran maksimal logo */
+    height: auto;
+    margin: 0 auto; /* Pusatkan logo */
+    filter: drop-shadow(0 0 10px rgba(0, 188, 212, 0.7)); /* Efek glow yang sama dengan elemen lain */
+    transition: transform 0.3s ease;
+}
+
+.header-logo:hover {
+    transform: scale(1.05);
+}
+
+/* Sembunyikan h1 atau ubah menjadi deskripsi jika diperlukan */
+/* Jika Anda tetap ingin menggunakan h1, Anda bisa menyembunyikannya */
+header h1 {
+    display: none;
+}
         /* Variabel CSS untuk warna */
         :root {
             --dark-bg: #1a1a2e; /* Latar belakang gelap utama */
