@@ -581,33 +581,77 @@
         // Memastikan elemen ada sebelum mencoba menyalin
         if (element) {
             const textToCopy = element.textContent;
+            const messageBox = document.getElementById('messageBox');
 
-            // Menggunakan Clipboard API modern
-            navigator.clipboard.writeText(textToCopy)
-                .then(() => {
-                    // Berhasil disalin
-                    const messageBox = document.getElementById('messageBox');
-                    messageBox.textContent = `Nomor ${elementId.replace('Number', '')} berhasil disalin!`;
-                    messageBox.classList.add('show');
-                    
-                    // Sembunyikan pesan setelah 3 detik
-                    setTimeout(() => {
-                        messageBox.classList.remove('show');
-                    }, 3000);
-                })
-                .catch(err => {
-                    // Gagal menyalin, bisa menampilkan pesan error atau log
-                    console.error('Gagal menyalin:', err);
-                    // Mengganti alert dengan pesan di messageBox
-                    const messageBox = document.getElementById('messageBox');
-                    messageBox.textContent = 'Gagal menyalin nomor. Silakan salin secara manual.';
-                    messageBox.style.backgroundColor = '#e74c3c'; // Warna merah untuk error
-                    messageBox.classList.add('show');
-                    setTimeout(() => {
-                        messageBox.classList.remove('show');
-                        messageBox.style.backgroundColor = '#2ecc71'; // Kembalikan warna hijau
-                    }, 3000);
-                });
+            // Coba menggunakan Clipboard API modern
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(textToCopy)
+                    .then(() => {
+                        // Berhasil disalin
+                        messageBox.textContent = `Nomor ${elementId.replace('Number', '')} berhasil disalin!`;
+                        messageBox.style.backgroundColor = '#2ecc71'; // Warna hijau untuk sukses
+                        messageBox.classList.add('show');
+                        
+                        // Sembunyikan pesan setelah 3 detik
+                        setTimeout(() => {
+                            messageBox.classList.remove('show');
+                        }, 3000);
+                    })
+                    .catch(err => {
+                        // Gagal menyalin dengan Clipboard API, coba fallback
+                        console.error('Gagal menyalin dengan Clipboard API:', err);
+                        fallbackCopyToClipboard(textToCopy, elementId);
+                    });
+            } else {
+                // Clipboard API tidak tersedia, langsung gunakan fallback
+                console.warn('Clipboard API tidak tersedia, menggunakan fallback.');
+                fallbackCopyToClipboard(textToCopy, elementId);
+            }
+        }
+    }
+
+    // Fungsi fallback untuk menyalin teks ke clipboard
+    function fallbackCopyToClipboard(textToCopy, elementId) {
+        const messageBox = document.getElementById('messageBox');
+        let textArea;
+        try {
+            textArea = document.createElement("textarea");
+            textArea.value = textToCopy;
+            // Hindari scroll ke bawah saat textarea ditambahkan
+            textArea.style.position = "fixed";
+            textArea.style.top = "0";
+            textArea.style.left = "0";
+            textArea.style.width = "1px";
+            textArea.style.height = "1px";
+            textArea.style.padding = "0";
+            textArea.style.border = "none";
+            textArea.style.outline = "none";
+            textArea.style.boxShadow = "none";
+            textArea.style.background = "transparent";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            document.execCommand('copy');
+
+            messageBox.textContent = `Nomor ${elementId.replace('Number', '')} berhasil disalin!`;
+            messageBox.style.backgroundColor = '#2ecc71'; // Warna hijau untuk sukses
+            messageBox.classList.add('show');
+            setTimeout(() => {
+                messageBox.classList.remove('show');
+            }, 3000);
+        } catch (err) {
+            console.error('Gagal menyalin secara manual:', err);
+            messageBox.textContent = 'Gagal menyalin nomor. Silakan salin secara manual.';
+            messageBox.style.backgroundColor = '#e74c3c'; // Warna merah untuk error
+            messageBox.classList.add('show');
+            setTimeout(() => {
+                messageBox.classList.remove('show');
+                messageBox.style.backgroundColor = '#2ecc71'; // Kembalikan warna hijau
+            }, 3000);
+        } finally {
+            if (textArea) {
+                document.body.removeChild(textArea);
+            }
         }
     }
 </script>
