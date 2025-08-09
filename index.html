@@ -566,7 +566,35 @@
     <footer>
         <p>&copy; 2025 𝑹𝒁𝒀𝒀. Semua Hak Dilindungi.</p>
     </footer>
+<script>
+    // Fungsi untuk menyalin teks ke clipboard
+    function copyToClipboard(elementId) {
+        // Mendapatkan elemen span yang berisi nomor
+        const element = document.getElementById(elementId);
+        
+        // Memastikan elemen ada sebelum mencoba menyalin
+        if (element) {
+            const textToCopy = element.textContent;
 
-    <script>
-        // Fungsi untuk menyalin teks ke clipboard
-        function copyToClipboar
+            // Menggunakan Clipboard API modern
+            navigator.clipboard.writeText(textToCopy)
+                .then(() => {
+                    // Berhasil disalin
+                    const messageBox = document.getElementById('messageBox');
+                    messageBox.textContent = `Nomor ${elementId.replace('Number', '')} berhasil disalin!`;
+                    messageBox.classList.add('show');
+                    
+                    // Sembunyikan pesan setelah 3 detik
+                    setTimeout(() => {
+                        messageBox.classList.remove('show');
+                    }, 3000);
+                })
+                .catch(err => {
+                    // Gagal menyalin, bisa menampilkan pesan error atau log
+                    console.error('Gagal menyalin:', err);
+                    alert('Gagal menyalin nomor. Silakan salin secara manual.');
+                });
+        }
+    }
+</script>
+    
